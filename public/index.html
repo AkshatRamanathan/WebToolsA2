@@ -89,7 +89,7 @@
                 q3: q3.value
             }
             console.log(data);
-            fetch(window.location.href, {
+            fetch(window.location.href+ "survey/1", {
                 method: 'POST',
                 body: JSON.stringify(data),
                 mode: 'cors',
