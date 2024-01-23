@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey | Assignment 1</title>
+    <style>
+        body {
+            width: 500px;
+            margin: 0px auto 0px auto;
+        }
+
+        #data {
+            display: table;
+            border: solid 1px black;
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Welcome to the Survey!</h1>
+    <form id="form" method="POST">
+        <div id="data"></div>
+        <div id="data2"></div>
+        <button type="submit">SUBMIT</button>
+    </form>
+    <script>
+        function fetchQuestions() {
+            var request = new XMLHttpRequest();
+            request.open('GET', '/questions.json', false);  // false makes it synchronous
+            request.send();
+            if (request.status === 200) {
+                return JSON.parse(request.responseText);
+            } else {
+                throw new Error('Failed to fetch JSON');
+            }
+        }
+
+        function outputMaker(obj) {
+            const QUESTIONS = fetchQuestions();
+            const dataDiv = document.getElementById("data2");
+            dataDiv.innerHTML = "";
+            QUESTIONS.forEach((question) => {
+                let qs = document.createElement('span')
+                qs.textContent = question.question
+                qs.style.fontWeight = "bold";
+                qs.appendChild(document.createTextNode(' '));
+                const res = document.createElement('label')
+                res.disabled = true;
+                res.setAttribute("id", question.id)
+                res.setAttribute("name", question.name)
+                res.textContent = obj[res.id];
+                dataDiv.appendChild(qs)
+                dataDiv.appendChild(res)
+                dataDiv.appendChild(document.createElement("br"))
+                dataDiv.appendChild(document.createElement("br"))
+            });
+        }
+
+        function formMaker(e) {
+
+            const QUESTIONS = fetchQuestions();
+            const dataDiv = document.getElementById("data");
+            QUESTIONS.forEach((question) => {
+                let qs = document.createElement('span')
+                qs.textContent = question.question
+                qs.appendChild(document.createTextNode(' '));
+                const res = document.createElement('input')
+                res.setAttribute("id", question.id)
+                res.setAttribute("name", question.name)
+                dataDiv.appendChild(qs)
+                dataDiv.appendChild(res)
+                dataDiv.appendChild(document.createElement("br"))
+                dataDiv.appendChild(document.createElement("br"))
+            });
+        }
+        document.addEventListener("DOMContentLoaded", formMaker);
+
+        document.getElementById("form").addEventListener('submit', handleSubmit);
+
+        function handleSubmit(e) {
+            e.preventDefault();
+            let { q1, q2, q3 } = e.target;
+            let data = {
+                q1: q1.value,
+                q2: q2.value,
+                q3: q3.value
+            }
+            console.log(data);
+            fetch(window.location.href, {
+                method: 'POST',
+                body: JSON.stringify(data),
+                mode: 'cors',
+                cache: 'no-cache',
+                credentials: 'same-origin',
+                headers: {
+                    'content-type': 'application/json'
+                },
+            }).then((res) => {
+                res.json().then((obj) => {
+                    console.log(obj)
+                    outputMaker(obj);
+                })
+            })
+
+        }
+    </script>
+</body>
+
+</html>
