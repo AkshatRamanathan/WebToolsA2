@@ -5,13 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --watch localhost 3000"
+    "start": "nodemon"
   },
   "author": "AkshatRamanathan",
   "license": "MIT",
   "dependencies": {
     "cookie-parser": "^1.4.6",
-    "cors": "^2.8.5",
     "express": "^4.18.2",
     "express-session": "^1.17.3"
   },
