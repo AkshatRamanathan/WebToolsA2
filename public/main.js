@@ -1,9 +1,18 @@
 document.addEventListener('DOMContentLoaded', start);
 document.getElementById("form").addEventListener('submit', handleSubmit);
 
-function handleSubmit(e){
+function handleSubmit(e) {
     e.preventDefault();
-    console.log(e.target.elements)
+    fetch('http://localhost:3000/survey/answer', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ "answer": e.target.elements[0].value })
+    }).then((res) => res.json().then((out) => {
+        console.log(out);
+        start();
+    }));
 }
 
 function drawQuestion(ques) {
@@ -14,6 +23,7 @@ function drawQuestion(ques) {
     const answerSpan = document.createElement("input");
     questionSpan.textContent = ques.question;
     questionSpan.setAttribute("id", ques.id);
+    questionSpan.setAttribute("name", ques.id);
     questionDiv.appendChild(questionSpan);
     questionDiv.appendChild(document.createTextNode(" "));
     questionDiv.appendChild(answerSpan);
@@ -21,9 +31,7 @@ function drawQuestion(ques) {
 }
 
 async function start() {
-    fetch('/survey/getQuestion').then((res) => res.json().then((ques) => {
+    fetch('http://localhost:3000/survey/getQuestion').then((res) => res.json().then((ques) => {
         drawQuestion(ques);
-    })
-    );
-
+    }));
 }
