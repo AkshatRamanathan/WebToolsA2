@@ -13,7 +13,7 @@ router.get('/getQuestion', (req, res) => {
     if ('qid' in req.session) qid = req.session.qid + 1;
     else qid = 0;
     req.session.qid = qid;
-    if (qid == questions.length) res.status(200).send({ "message": "done" })
+    if (qid == questions.length) res.status(200).send({ "message": "done", ...req.session.answers })
     res.status(200).send(questions[qid]);
 })
 

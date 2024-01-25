@@ -18,8 +18,6 @@ app.use(session({
   cookie: {
     maxAge: 1000 * 60 * 5,
     signed: true,
-    // sameSite: 'none', if added, thunderclient breaks, but still no header in chrome
-    // secure: true
   }
 }));
 app.use('/', express.static('public'));

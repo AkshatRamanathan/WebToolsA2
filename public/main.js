@@ -1,6 +1,18 @@
 document.addEventListener('DOMContentLoaded', start);
 document.getElementById("form").addEventListener('submit', handleSubmit);
 
+function drawResult(result) {
+    console.log(result);
+    let ansDiv = document.getElementById("data2");
+    for (let x in result) {
+        if (x == "message") continue;
+        ansDiv.appendChild(document.createTextNode(result[x].answer));
+        ansDiv.appendChild(document.createTextNode(" "));
+        document.getElementById("data").style.display = "none";
+        ansDiv.style.display = 'block';
+    }
+}
+
 function handleSubmit(e) {
     e.preventDefault();
     fetch('http://localhost:3000/survey/answer', {
@@ -11,14 +23,14 @@ function handleSubmit(e) {
         },
         body: JSON.stringify({ "answer": e.target.elements[0].value })
     }).then((res) => res.json().then((out) => {
-        console.log(out);
+        // console.log(out);
         start();
     }));
 }
 
 function drawQuestion(ques) {
+    if (ques.message == "done") drawResult(ques);
     document.getElementById("data").innerHTML = "";
-    console.log(ques);
     const questionDiv = document.createElement("aside");
     const questionSpan = document.createElement("span");
     const answerSpan = document.createElement("input");
