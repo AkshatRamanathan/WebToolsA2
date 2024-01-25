@@ -20,7 +20,7 @@ router.get('/getQuestion', (req, res) => {
 router.post('/answer', (req, res) => {
     // console.log(req.body);
     if (!('answers' in req.session)) req.session.answers = [req.body];
-    else req.session.answers.push(req.body);
+    req.session.answers.push(req.body);
     res.status(200).send({"message": "next"});
 })
 

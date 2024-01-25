@@ -7,7 +7,7 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const port = 3000
 
-app.use(cors({ credentials: true, origin: 'http://127.0.0.1:5500' }));
+app.use(cors({ credentials: true, origin: ["http://localhost:5500"] }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser('test-secret-hash-key'));
