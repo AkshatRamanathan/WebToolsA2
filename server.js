@@ -7,8 +7,8 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const port = 3000
 
-app.use(cors());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(cors({ credentials: true, origin: 'http://127.0.0.1:5500' }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser('test-secret-hash-key'));
 app.use(session({
@@ -17,7 +17,9 @@ app.use(session({
   resave: false,
   cookie: {
     maxAge: 1000 * 60 * 5,
-    signed: true
+    signed: true,
+    // sameSite: 'none', if added, thunderclient breaks, but still no header in chrome
+    // secure: true
   }
 }));
 app.use('/', express.static('public'));

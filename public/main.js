@@ -6,7 +6,8 @@ function handleSubmit(e) {
     fetch('http://localhost:3000/survey/answer', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            credentials: 'include'
         },
         body: JSON.stringify({ "answer": e.target.elements[0].value })
     }).then((res) => res.json().then((out) => {
@@ -31,7 +32,9 @@ function drawQuestion(ques) {
 }
 
 async function start() {
-    fetch('http://localhost:3000/survey/getQuestion').then((res) => res.json().then((ques) => {
+    fetch('http://localhost:3000/survey/getQuestion', {
+        credentials: 'include',
+    }).then((res) => res.json().then((ques) => {
         drawQuestion(ques);
     }));
 }
