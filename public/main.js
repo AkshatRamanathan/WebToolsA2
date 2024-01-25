@@ -17,13 +17,14 @@ function handleSubmit(e) {
     e.preventDefault();
     fetch('http://localhost:3000/survey/answer', {
         method: 'POST',
+        credentials: 'include',
         headers: {
             'Content-Type': 'application/json',
-            credentials: 'include'
+
         },
         body: JSON.stringify({ "answer": e.target.elements[0].value })
     }).then((res) => res.json().then((out) => {
-        // console.log(out);
+        console.log(out);
         start();
     }));
 }
