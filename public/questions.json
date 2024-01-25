@@ -1,17 +1,14 @@
 [
     {
         "question": "What is your name?",
-        "id": "q1",
-        "name": "q1"
+        "id": "0"
     },
     {
         "question": "What is your age?",
-        "id": "q2",
-        "name": "q2"
+        "id": "1"
     },
     {
         "question": "What is your course?",
-        "id": "q3",
-        "name": "q3"
+        "id": "2"
     }
 ]

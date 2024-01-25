@@ -2,10 +2,10 @@
   "name": "assignment2",
   "version": "1.0.0",
   "description": "ExpressJS survey questions application",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --watch localhost 3000"
+    "start": "nodemon server.js"
   },
   "author": "AkshatRamanathan",
   "license": "MIT",
