@@ -17,12 +17,12 @@ function handleSubmit(e) {
     e.preventDefault();
     fetch('http://localhost:3000/survey/answer', {
         method: 'POST',
-        credentials: 'include',
+        credentials: 'include', //include response headers in browser
         headers: {
             'Content-Type': 'application/json',
 
         },
-        body: JSON.stringify({ "answer": e.target.elements[0].value })
+        body: JSON.stringify({ "answer": e.target.elements[0].value }) //send json body
     }).then((res) => res.json().then((out) => {
         console.log(out);
         start();
@@ -46,7 +46,7 @@ function drawQuestion(ques) {
 
 async function start() {
     fetch('http://localhost:3000/survey/getQuestion', {
-        credentials: 'include',
+        credentials: 'include', // include response headers in browser
     }).then((res) => res.json().then((ques) => {
         drawQuestion(ques);
     }));
